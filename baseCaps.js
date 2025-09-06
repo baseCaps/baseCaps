@@ -7,7 +7,7 @@ const baseCaps = {
     else if ( z === false ) { r = rw; }
     else { if ( cp && cp.length < rw.length ) { f = 1; r = cp; } else { r = rw; } }
     let t = c, a = I(t), n = 8 + (r.length << 3);
-    if ( a.length === 0 ) throw new Error("Cover text has no A–Z characters to encode into");
+    if ( a.length === 0 ) throw new Error("Cover text has no A–Z characters");
     while ( a.length < n ) { let b = t.length; t += sp + c; for ( let i = 0; i < c.length; i++ ) if ( l(c[i]) ) a.push(b + sp.length + i); }
     let e = a.length - n;
     if ( e > 127 ) { let m = e - 127, u = t.length - 1; for ( ; u >= 0 && m > 0; u-- ) if ( l(t[u]) ) m--; t = t.slice(0, u + 1); a = I(t); e = a.length - n; }
@@ -23,7 +23,7 @@ const baseCaps = {
     const l = x => /[A-Za-z]/.test(x), I = s => { let a = []; for ( let i = 0; i < s.length; i++ ) if ( l(s[i]) ) a.push(i); return a; };
     const td = new TextDecoder(), U = async b => { if ( typeof DecompressionStream !== "function" ) throw new Error("Compression not supported"); let ds = new DecompressionStream("deflate"), w = ds.writable.getWriter(); w.write(b); w.close(); return new Uint8Array(await new Response(ds.readable).arrayBuffer()); };
     let a = I(t);
-    if ( a.length === 0 ) throw new Error("Input has no A–Z characters to decode from");
+    if ( a.length === 0 ) throw new Error("Input has no A–Z characters");
     if ( a.length < 8 ) return "";
     let H = 0; for ( let k = 0; k < 8; k++ ) { let c = t[a[k]]; H = (H << 1) | (c === c.toUpperCase()); }
     let f = (H >> 7) & 1;
